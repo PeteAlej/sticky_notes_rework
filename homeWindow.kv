@@ -1,0 +1,105 @@
+# Filename: ms_stocky_notes_rework.py
+# el símbolo de abajo del numeral con los dos puntos es para importar un paquete de kivy en los archivos .kv en caso se requiera.
+# en este caso, el paquete de Factory no va a funcionar si lo importamos directamente en el .py porque se corre en este archivo también.
+#: import Factory kivy.factory.Factory
+<homeWindow>
+    id: homeWindow
+    GridLayout:
+        cols: 3
+        rows: 1
+        size: root.width, root.height
+        orientation: 'tb-lr'
+        pos: 0, root.height - 50
+
+        Button:
+            id: add_pad
+            markup: True
+            text: '[b]+[/b]'
+            text_size: self.size
+            font_size: 24
+            size_hint_y: None
+            size: 50, 50
+            halign: 'center'
+            valign: 'center'
+            #background_normal: ''
+            background_color: (0.3,0.3,0.3,1)
+            on_release: root.createNewPad()
+
+        Label:
+            size_hint_x: None
+            width: root.width-100
+
+        Button:
+            id: settings
+            size_hint_y: None
+            size: 50, 50
+            background_color: (0.3,0.3,0.3,1)
+            Image:
+                source: 'settings1124.png'
+                #halign: 'center'
+                #valign: 'center'
+                y: settings.center_y - 15
+                x: settings.center_x - 15
+                size: 30, 30
+                allow_stretch: True
+
+    GridLayout:
+        size: root.width, root.height - 50
+        pos: 0, 0
+        cols: 1
+        orientation: 'tb-lr'
+
+        Label:
+            markup: True
+            text: '[b]Sticky Pads[/b]'
+            size_hint: None, None
+            size: root.width, 50
+            text_size: self.size
+            font_name: "Framd"
+            font_size: 24
+            #valign: 'top'
+            padding: (12,8)
+
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'top'
+
+            TextInput:
+                id: padSearchBar
+                text: 'Search...'
+                size_hint: None, None
+                size: root.width-20, 30
+                multiline: False
+                on_focus: root.resetSearch()
+                on_text_validate: root.searchPad(self.text)
+
+    ScrollView:
+        id: scroller
+        size_hint_y: None
+        size: root.width, root.height-150
+        do_scroll_x: False
+        do_scroll_y: True
+
+        AnchorLayout:
+            id: notesAnchor
+            anchor_x: 'center'
+            anchor_y: 'top'
+
+            GridLayout:
+                id: notesList
+                size: root.width-20, root.height-150
+                cols: 1
+                size_hint: None, None
+
+                #Button:
+                 #   text: 'Hello World!'
+
+                #Button:
+                 #   text: 'How are youuuuu?'
+
+
+
+
+<newPad@Popup>
+    auto_dismiss: False
+    title: "Pad"
