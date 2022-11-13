@@ -16,11 +16,9 @@ Config.set(window_width[0], window_width[1], window_width[2])   # Setear el anch
 Config.set('graphics', 'resizable', True)   # Permitir que el tamaño de la ventana se pueda modificar.
 Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 
-import time
-import subprocess
 from kivy.app import App
 from kivy.core.window import Window
-from kivy.uix.gridlayout import GridLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.widget import Widget
 from kivy.uix.label import Label
 from kivy.uix.button import Button
@@ -42,7 +40,13 @@ Window.minimum_height = window_size_min[1]
 Builder.load_file('homeWindow.kv')
 Builder.load_file('notesWindow.kv')
 
-class homeWindow(Widget):
+class newPad(BoxLayout):
+    pass
+
+class homeWindow(Screen):
+    
+    def __init__(self, **kwargs):
+        super(homeWindow, self).__init__(**kwargs)
     
     def resetSearch(self):
         searchTerm = self.ids.padSearchBar.text
@@ -55,16 +59,26 @@ class homeWindow(Widget):
     
     def searchPad(self, text):
         print(text)
+        
+    def createNewPad(self):
+        new_pad = newPad();
+        self.ids.container.add_widget(new_pad)
+        pass
+        
+    """
     
     def createNewPad(self, *args):
         numNotes = len(self.ids.notesList.children)
         button = Button(
+            #pos_hint = {'x': 1, 'y': 1},
             text = f"Label {numNotes+1}",
-            text_size = self.size,
+            #text_size = self.size,
             font_name = "Framd",
-            font_size = 24,
+            font_size = 20,
         )
         self.ids.notesList.add_widget(button)
+        
+    """
     
 
 class notesWindow(Widget):
@@ -73,16 +87,7 @@ class notesWindow(Widget):
 class StickyPadApp(App):
     
     def build(self):
-        # return Label(text='Hello world')  
-        for i in range(10):
-            btn = Button(
-                text = str(i),
-                #size_hint_y = None,
-                #height = 30,
-                #size_x = Window.width
-            )
-            notesList = homeWindow().ids.notesList.add_widget(btn)
-        
+        # return Label(text='Hello world')        
         return homeWindow();
 
 

@@ -1,0 +1,56 @@
+# Filename: add_widget_button.py
+
+<new_widget>:
+    cols: 1
+    height: 30
+    width: root.width
+    size_hint_y: None
+    pos_hint: {'y': 0.1}
+    Button:
+        text: 'Press me next!'
+        size_hint_x: None
+        #size_hint_y: None
+        size: root.width, root.height
+        #pos_hint: {'y': 0.5}
+
+<baseboard>:
+    BoxLayout:
+        orientation: 'horizontal'
+        cols: 2
+        pos_hint: {'top': 1}
+        size: root.width, 30
+        size_hint_y: None
+
+        Button:
+            text: 'Press me!'
+            height: root.height
+            on_release: root.add_custom_widget()
+
+        Label:
+            text: 'Placeholder'
+
+    ScrollView:
+        id: scroll
+        do_scroll_x: False
+        do_scroll_y: True
+        size_hint: 1, None
+        width: root.width
+        size: root.width, root.height
+        pos_hint: {'top': 0.95}
+        always_overscroll: True
+
+        GridLayout:
+            id: container
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+
+#        StackLayout:
+#            id: container
+#            cols: 1
+#            orientation: 'tb-lr'
+#            size_hint_x: 1
+#            size_hint_y: 1
+#            height: self.minimum_height
+#            width: root.width
+#            pos_hint: {'y': -0.2}

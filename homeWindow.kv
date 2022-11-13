@@ -2,7 +2,22 @@
 # el símbolo de abajo del numeral con los dos puntos es para importar un paquete de kivy en los archivos .kv en caso se requiera.
 # en este caso, el paquete de Factory no va a funcionar si lo importamos directamente en el .py porque se corre en este archivo también.
 #: import Factory kivy.factory.Factory
-<homeWindow>
+
+<newPad>:
+    id: newPad
+    cols: 1
+    height: 30
+    width: root.width
+    size_hint_y: None
+    pos_hint: {'y': 0.1}
+    Button:
+        text: 'Press me next!'
+        size_hint_x: None
+        #size_hint_y: None
+        size: root.width, root.height
+        #pos_hint: {'y': 0.5}
+
+<homeWindow>:
     id: homeWindow
     GridLayout:
         cols: 3
@@ -23,7 +38,7 @@
             valign: 'center'
             #background_normal: ''
             background_color: (0.3,0.3,0.3,1)
-            on_release: root.createNewPad()
+            on_press: root.createNewPad()
 
         Label:
             size_hint_x: None
@@ -44,8 +59,9 @@
                 allow_stretch: True
 
     GridLayout:
-        size: root.width, root.height - 50
-        pos: 0, 0
+        size: root.width, root.height
+        pos: 0, -45
+        size_hint_y: None
         cols: 1
         orientation: 'tb-lr'
 
@@ -67,35 +83,30 @@
             TextInput:
                 id: padSearchBar
                 text: 'Search...'
+                foreground_color: [1, 1, 1, 1] 
                 size_hint: None, None
                 size: root.width-20, 30
                 multiline: False
+                background_color: [0.3, 0.3, 0.3, 1]
                 on_focus: root.resetSearch()
                 on_text_validate: root.searchPad(self.text)
 
     ScrollView:
-        id: scroller
-        size_hint_y: None
-        size: root.width, root.height-150
+        id: scroll
         do_scroll_x: False
         do_scroll_y: True
+        size_hint: None, None
+        size: root.width - 20, root.height - 135
+        pos: 10, 0
+        #pos_hint: {'center': 1}
+        #pos_hint: {'top': 0.7}
+        #always_overscroll: True
 
-        AnchorLayout:
-            id: notesAnchor
-            anchor_x: 'center'
-            anchor_y: 'top'
-
-            GridLayout:
-                id: notesList
-                size: root.width-20, root.height-150
-                cols: 1
-                size_hint: None, None
-
-                #Button:
-                 #   text: 'Hello World!'
-
-                #Button:
-                 #   text: 'How are youuuuu?'
+        GridLayout:
+            id: container
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
 
 
 
