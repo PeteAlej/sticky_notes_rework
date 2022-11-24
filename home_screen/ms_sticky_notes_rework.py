@@ -36,7 +36,7 @@ Window.minimum_height = window_size_min[1]
 
 # Builder.load_file('stickyNotes_float.kv')
 Builder.load_file('homeWindow.kv')
-Builder.load_file('notesWindow.kv')
+#Builder.load_file('notesWindow.kv')
 
 class newPad(BoxLayout):
     pass
@@ -61,8 +61,6 @@ class homeWindow(Screen):
     def createNewPad(self):
         new_pad = newPad();
         self.ids.container.add_widget(new_pad)
-        
-        
         pass
         
     """
